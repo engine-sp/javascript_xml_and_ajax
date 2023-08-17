@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xhttp</title>
+</head>
+<body>
+    <script>
+        let btn = document.createElement("button");
+            btn.textContent = "click";
+            btn.addEventListener("click", () => {
+                let xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        readXML(this);
+                    }
+                };
+                xhttp.open("GET", "cd_catalog.xml", true);
+                xhttp.send();
+            });
+        let readXML = (xml) => {
+            const table_id = "xmltable";
+            const oldTable = document.getElementById(table_id);
+            if(oldTable != undefined)
+                oldTable.remove();
+            const table = document.createElement("table");
+                table.setAttribute("id", table_id);
+                table.setAttribute("border",1);
+            const thead = document.createElement("thead");
+            const tbody = document.createElement("tbody");
+            const xdataName = ["ARTIST", "TITLE"];
+            const tr = document.createElement("tr");
+            for (let xi = 0; xi < xdataName.length; xi++) {
+                const th = document.createElement("th");
+                    th.textContent=xdataName[xi];
+                tr.appendChild(th);
+            }
+            thead.appendChild(tr);
+
+            const xmlDoc = xml.responseXML;
+            const x = xmlDoc.getElementsByTagName("CD");
+            for(let i = 0; i<x.length; i++){
+                const tr = document.createElement("tr");
+                for(let xi = 0; xi< xdataName.length; xi++){
+                    const td = document.createElement("td");
+                        td.textContent = x[i].getElementsByTagName(xdataName[xi])[0].textContent;
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+            }
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            document.body.appendChild(table);
+            btn.remove();
+        };
+        document.body.appendChild(btn);
+    </script>
+</body>
+</html>
