@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax</title>
+</head>
+<body>
+    <script>
+        let getjsonp = async function () {
+                console.log("A");
+                const res = await fetch('cd_catalog.js');
+                console.log("B");
+                const json = await res.json();
+                console.log(json);
+            } 
+        let btn = document.createElement("button");
+            btn.textContent = "click";
+            btn.addEventListener("click", getjsonp);
+        
+
+        document.body.appendChild(btn);
+    </script>
+</body>
+</html>

@@ -40,6 +40,7 @@
 
             const xmlDoc = xml.responseXML;
             const x = xmlDoc.getElementsByTagName("CD");
+            const json=[];
             for(let i = 0; i<x.length; i++){
                 const tr = document.createElement("tr");
                 for(let xi = 0; xi< xdataName.length; xi++){
@@ -53,6 +54,7 @@
             table.appendChild(tbody);
             document.body.appendChild(table);
             btn.remove();
+            console.log(json);
         };
         document.body.appendChild(btn);
     </script>
